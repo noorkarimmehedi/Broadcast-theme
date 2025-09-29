@@ -12,6 +12,16 @@
     "main": {
       "type": "product",
       "blocks": {
+        "title_8Y7MTP": {
+          "type": "title",
+          "settings": {
+            "subheading_option": "none",
+            "show_rating": true,
+            "enable_star_rating": true,
+            "show_rating_count": false,
+            "padding_bottom": 8
+          }
+        },
         "pickup": {
           "type": "pickup",
           "disabled": true,
@@ -19,7 +29,7 @@
             "padding_bottom": 32
           }
         },
-        "variants_gbxyEx": {
+        "variants_3cRT3q": {
           "type": "variants",
           "settings": {
             "info_page": "",
@@ -56,8 +66,9 @@
         }
       },
       "block_order": [
+        "title_8Y7MTP",
         "pickup",
-        "variants_gbxyEx",
+        "variants_3cRT3q",
         "tabs",
         "buttons_xAgMTi"
       ],
