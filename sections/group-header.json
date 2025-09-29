@@ -1,0 +1,1 @@
+{"type":"header","name":"Header","sections":{"header":{"type":"header","settings":{"header_style":"logo_beside","highlight_item_color":"#D02E2E"}},"announcement":{"type":"announcement","settings":{"layout":"slider","bg_color":"#f7f7f7","color":"#545454"}}},"order":["announcement","header"]}
