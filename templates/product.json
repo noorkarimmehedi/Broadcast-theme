@@ -220,7 +220,6 @@
         "custom-0": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/71i0CoSm4UL._AC_SL1500.jpg",
             "overlay_opacity": 0,
             "overlay_color": "#000000",
             "show_overlay_text": false,
