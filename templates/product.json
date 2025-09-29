@@ -19,6 +19,14 @@
             "padding_bottom": 32
           }
         },
+        "variants_gbxyEx": {
+          "type": "variants",
+          "settings": {
+            "info_page": "",
+            "subscriptions_enable_selectors": false,
+            "padding_bottom": 16
+          }
+        },
         "tabs": {
           "type": "tab_richtext",
           "settings": {
@@ -49,6 +57,7 @@
       },
       "block_order": [
         "pickup",
+        "variants_gbxyEx",
         "tabs",
         "buttons_xAgMTi"
       ],
