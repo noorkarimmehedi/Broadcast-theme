@@ -54,14 +54,14 @@
       ],
       "settings": {
         "product_sticky_enable": true,
-        "image_layout": "stacked",
+        "image_layout": "thumbnails-left",
         "image_size": "normal",
         "show_cart_bar": true,
         "enable_zoom": true,
         "enable_video_looping": false,
         "mobile_image_style": "thumbs",
-        "padding_top": 90,
-        "padding_bottom": 30
+        "padding_top": 16,
+        "padding_bottom": 3
       }
     },
     "faq": {
