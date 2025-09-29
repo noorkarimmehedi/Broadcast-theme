@@ -55,6 +55,12 @@
             "padding_bottom": 0
           }
         },
+        "price_LbWbx7": {
+          "type": "price",
+          "settings": {
+            "padding_bottom": 20
+          }
+        },
         "buttons_xAgMTi": {
           "type": "buttons",
           "settings": {
@@ -70,6 +76,7 @@
         "pickup",
         "variants_3cRT3q",
         "tabs",
+        "price_LbWbx7",
         "buttons_xAgMTi"
       ],
       "settings": {
