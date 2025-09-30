@@ -15,7 +15,7 @@
         "title_8Y7MTP": {
           "type": "title",
           "settings": {
-            "subheading_option": "none",
+            "subheading_option": "breadcrumb",
             "show_rating": true,
             "enable_star_rating": true,
             "show_rating_count": false,
@@ -78,6 +78,9 @@
         "tabs",
         "price_LbWbx7",
         "buttons_xAgMTi"
+      ],
+      "custom_css": [
+        "h1 {font-size: 22px;}"
       ],
       "settings": {
         "product_sticky_enable": true,
