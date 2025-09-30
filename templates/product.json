@@ -15,7 +15,7 @@
         "title_8Y7MTP": {
           "type": "title",
           "settings": {
-            "subheading_option": "breadcrumb",
+            "subheading_option": "none",
             "show_rating": true,
             "enable_star_rating": true,
             "show_rating_count": false,
