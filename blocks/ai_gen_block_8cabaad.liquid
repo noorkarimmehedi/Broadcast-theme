@@ -209,20 +209,20 @@
   }
 
   .ai-category-slider-dot-{{ ai_gen_id }} {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: {{ block.settings.dot_color }};
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background-color: #000000;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    opacity: 0.3;
+    opacity: 0.4;
   }
 
   .ai-category-slider-dot-{{ ai_gen_id }}.active {
-    background-color: {{ block.settings.dot_active_color }};
+    background-color: #000000;
     opacity: 1;
-    transform: scale(1.2);
+    width: 24px;
   }
 
   @media screen and (max-width: 768px) {
@@ -478,29 +478,31 @@
       }
 
       createDots() {
-        if (!this.dotsContainer || this.maxSlide === 0) {
-          if (this.dotsContainer) {
-            this.dotsContainer.style.display = 'none';
-          }
+        if (!this.dotsContainer) return;
+        
+        // Calculate total pages based on slides per view
+        const totalPages = Math.ceil(this.cards.length / this.slidesPerView);
+        
+        // Hide dots if only one page
+        if (totalPages <= 1) {
+          this.dotsContainer.style.display = 'none';
           return;
         }
         
         this.dotsContainer.style.display = 'flex';
         this.dotsContainer.innerHTML = '';
         
-        const step = this.slidesPerView;
-        const numDots = Math.ceil((this.cards.length) / step);
-        
-        for (let i = 0; i < numDots; i++) {
-          const slideIndex = i * step;
-          if (slideIndex <= this.maxSlide) {
-            const dot = document.createElement('button');
-            const isActive = this.currentSlide >= slideIndex && this.currentSlide < slideIndex + step;
-            dot.className = `ai-category-slider-dot-{{ ai_gen_id }} ${isActive ? 'active' : ''}`;
-            dot.setAttribute('data-slide', slideIndex);
-            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-            this.dotsContainer.appendChild(dot);
-          }
+        // Create dots for each page
+        for (let i = 0; i < totalPages; i++) {
+          const slideIndex = i * this.slidesPerView;
+          const dot = document.createElement('button');
+          const currentPage = Math.floor(this.currentSlide / this.slidesPerView);
+          const isActive = currentPage === i;
+          
+          dot.className = `ai-category-slider-dot-{{ ai_gen_id }} ${isActive ? 'active' : ''}`;
+          dot.setAttribute('data-slide', slideIndex);
+          dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+          this.dotsContainer.appendChild(dot);
         }
       }
 
@@ -525,13 +527,11 @@
       updateDots() {
         if (!this.dotsContainer) return;
         
-        const step = this.slidesPerView;
+        const currentPage = Math.floor(this.currentSlide / this.slidesPerView);
         const dots = this.dotsContainer.querySelectorAll('.ai-category-slider-dot-{{ ai_gen_id }}');
         
-        dots.forEach((dot) => {
-          const slideIndex = parseInt(dot.getAttribute('data-slide'));
-          const isActive = this.currentSlide >= slideIndex && this.currentSlide < slideIndex + step;
-          dot.classList.toggle('active', isActive);
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentPage);
         });
       }
 
