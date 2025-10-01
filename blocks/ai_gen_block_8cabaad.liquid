@@ -530,11 +530,19 @@
       updateDots() {
         if (!this.dotsContainer) return;
         
-        const currentPage = Math.floor(this.currentSlide / this.slidesPerView);
         const dots = this.dotsContainer.querySelectorAll('.ai-category-slider-dot-{{ ai_gen_id }}');
+        if (dots.length === 0) return;
         
+        // Calculate which page we're on based on current slide
+        const currentPage = Math.floor(this.currentSlide / this.slidesPerView);
+        
+        // Update all dots
         dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentPage);
+          if (index === currentPage) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
         });
       }
 
@@ -724,6 +732,11 @@
                 // Swiped right - go to previous
                 this.prevSlide();
               }
+              
+              // Force update dots after swipe
+              setTimeout(() => {
+                this.updateDots();
+              }, 100);
             } else {
               // Snap back to current position
               this.updateSlider();
