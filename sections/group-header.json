@@ -36,8 +36,8 @@
         "show_arrows": false,
         "marquee_speed": 100,
         "text_size": 2,
-        "bg_color": "#f7f7f7",
-        "color": "#545454"
+        "bg_color": "#7a0707",
+        "color": "#ffffff"
       }
     },
     "header": {
