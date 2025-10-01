@@ -482,18 +482,26 @@
         this.dotsContainer.style.display = 'flex';
         this.dotsContainer.innerHTML = '';
         
-        for (let i = 0; i <= this.maxSlide; i++) {
-          const dot = document.createElement('button');
-          dot.className = `ai-category-slider-dot-{{ ai_gen_id }} ${i === this.currentSlide ? 'active' : ''}`;
-          dot.setAttribute('data-slide', i);
-          dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-          this.dotsContainer.appendChild(dot);
+        const step = this.slidesPerView;
+        const numDots = Math.ceil((this.cards.length) / step);
+        
+        for (let i = 0; i < numDots; i++) {
+          const slideIndex = i * step;
+          if (slideIndex <= this.maxSlide) {
+            const dot = document.createElement('button');
+            const isActive = this.currentSlide >= slideIndex && this.currentSlide < slideIndex + step;
+            dot.className = `ai-category-slider-dot-{{ ai_gen_id }} ${isActive ? 'active' : ''}`;
+            dot.setAttribute('data-slide', slideIndex);
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            this.dotsContainer.appendChild(dot);
+          }
         }
       }
 
       updateSlider() {
         if (this.isTransitioning) return;
         
+        const slideStep = this.slidesPerView;
         const cardWidth = 100 / this.slidesPerView;
         const translateX = -(this.currentSlide * cardWidth);
         this.track.style.transform = `translateX(${translateX}%)`;
@@ -512,9 +520,13 @@
       updateDots() {
         if (!this.dotsContainer) return;
         
+        const step = this.slidesPerView;
         const dots = this.dotsContainer.querySelectorAll('.ai-category-slider-dot-{{ ai_gen_id }}');
+        
         dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === this.currentSlide);
+          const slideIndex = parseInt(dot.getAttribute('data-slide'));
+          const isActive = this.currentSlide >= slideIndex && this.currentSlide < slideIndex + step;
+          dot.classList.toggle('active', isActive);
         });
       }
 
@@ -529,8 +541,11 @@
       nextSlide() {
         if (this.isTransitioning) return;
         
+        const step = this.slidesPerView;
+        
         if (this.currentSlide < this.maxSlide) {
-          this.goToSlide(this.currentSlide + 1);
+          const nextSlide = Math.min(this.currentSlide + step, this.maxSlide);
+          this.goToSlide(nextSlide);
         } else if (this.autoplay) {
           this.goToSlide(0);
         }
@@ -539,8 +554,11 @@
       prevSlide() {
         if (this.isTransitioning) return;
         
+        const step = this.slidesPerView;
+        
         if (this.currentSlide > 0) {
-          this.goToSlide(this.currentSlide - 1);
+          const prevSlide = Math.max(this.currentSlide - step, 0);
+          this.goToSlide(prevSlide);
         }
       }
 
