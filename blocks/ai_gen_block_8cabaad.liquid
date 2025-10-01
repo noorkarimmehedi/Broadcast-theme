@@ -1,7 +1,13 @@
-{% doc %}
-  @prompt
-    create a slider catagories for me, in every collection i can set from shopify also can put my custom link aslo. and the slider isn't working on mobile version
-{% enddoc %}
+{% comment %}
+  Category Slider Section for Shopify
+  Features:
+  - Support for Shopify collections or custom links
+  - Fully responsive with touch/swipe support
+  - Autoplay functionality
+  - Navigation arrows and dots
+  - Customizable styling
+{% endcomment %}
+
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
@@ -211,16 +217,20 @@
   }
 
   @media screen and (max-width: 768px) {
+    .ai-category-slider-container-{{ ai_gen_id }} {
+      padding: 0 20px;
+    }
+
     .ai-category-card-{{ ai_gen_id }} {
       width: calc((100% - {{ block.settings.card_spacing | times: block.settings.slides_mobile | minus: 1 }}px) / {{ block.settings.slides_mobile }});
     }
 
     .ai-category-slider-nav-prev-{{ ai_gen_id }} {
-      left: 10px;
+      left: 5px;
     }
 
     .ai-category-slider-nav-next-{{ ai_gen_id }} {
-      right: 10px;
+      right: 5px;
     }
 
     .ai-category-card-overlay-{{ ai_gen_id }} {
@@ -625,7 +635,8 @@
 {% schema %}
 {
   "name": "Category slider",
-  "tag": null,
+  "tag": "section",
+  "class": "section",
   "settings": [
     {
       "type": "header",
