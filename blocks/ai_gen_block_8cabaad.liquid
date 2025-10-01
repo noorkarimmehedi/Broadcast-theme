@@ -622,14 +622,21 @@
         this.addEventListener('mouseleave', () => this.restartAutoplay());
 
         let startX = 0;
+        let startY = 0;
         let currentX = 0;
+        let currentY = 0;
         let isDragging = false;
         let startTime = 0;
+        let isHorizontalSwipe = false;
 
         const handleTouchStart = (e) => {
-          startX = e.touches ? e.touches[0].clientX : e.clientX;
+          const touch = e.touches ? e.touches[0] : e;
+          startX = touch.clientX;
+          startY = touch.clientY;
           currentX = startX;
+          currentY = startY;
           isDragging = true;
+          isHorizontalSwipe = false;
           startTime = Date.now();
           this.stopAutoplay();
           this.isTransitioning = false;
@@ -637,17 +644,37 @@
 
         const handleTouchMove = (e) => {
           if (!isDragging) return;
-          e.preventDefault();
-          currentX = e.touches ? e.touches[0].clientX : e.clientX;
+          
+          const touch = e.touches ? e.touches[0] : e;
+          currentX = touch.clientX;
+          currentY = touch.clientY;
+          
+          const diffX = Math.abs(currentX - startX);
+          const diffY = Math.abs(currentY - startY);
+          
+          // Determine if this is a horizontal swipe
+          if (!isHorizontalSwipe && (diffX > 10 || diffY > 10)) {
+            isHorizontalSwipe = diffX > diffY;
+          }
+          
+          // Prevent default only for horizontal swipes
+          if (isHorizontalSwipe) {
+            e.preventDefault();
+          }
         };
 
-        const handleTouchEnd = () => {
+        const handleTouchEnd = (e) => {
           if (!isDragging) return;
           isDragging = false;
           
+          if (!isHorizontalSwipe) {
+            this.restartAutoplay();
+            return;
+          }
+          
           const diff = startX - currentX;
           const timeDiff = Date.now() - startTime;
-          const threshold = 50;
+          const threshold = 30;
           const velocity = Math.abs(diff) / timeDiff;
           
           if (Math.abs(diff) > threshold || velocity > 0.3) {
@@ -667,9 +694,10 @@
           this.restartAutoplay();
         };
 
-        this.track.addEventListener('touchstart', handleTouchStart, { passive: false });
+        this.track.addEventListener('touchstart', handleTouchStart, { passive: true });
         this.track.addEventListener('touchmove', handleTouchMove, { passive: false });
-        this.track.addEventListener('touchend', handleTouchEnd);
+        this.track.addEventListener('touchend', handleTouchEnd, { passive: true });
+        this.track.addEventListener('touchcancel', handleTouchEnd, { passive: true });
 
         this.track.addEventListener('mousedown', handleTouchStart);
         this.track.addEventListener('mousemove', handleTouchMove);
@@ -677,6 +705,13 @@
         this.track.addEventListener('mouseleave', handleTouchEnd);
 
         this.track.addEventListener('dragstart', (e) => e.preventDefault());
+        
+        // Prevent click events from triggering during swipe
+        this.track.addEventListener('click', (e) => {
+          if (Math.abs(startX - currentX) > 10) {
+            e.preventDefault();
+          }
+        }, true);
       }
 
       disconnectedCallback() {
