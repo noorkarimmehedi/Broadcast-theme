@@ -3,6 +3,7 @@
   Features:
   - Support for Shopify collections or custom links
   - Fully responsive with touch/swipe support
+  - Slides by 2 categories on mobile, 4 on desktop
   - Autoplay functionality
   - Navigation arrows and dots
   - Customizable styling
@@ -49,6 +50,7 @@
   .ai-category-slider-wrapper-{{ ai_gen_id }} {
     position: relative;
     overflow: hidden;
+    width: 100%;
   }
 
   .ai-category-slider-track-{{ ai_gen_id }} {
@@ -229,11 +231,19 @@
     }
 
     .ai-category-slider-wrapper-{{ ai_gen_id }} {
-      padding: 0 50px;
+      margin: 0 50px;
+      padding: 0;
+    }
+
+    .ai-category-slider-track-{{ ai_gen_id }} {
+      gap: {{ block.settings.card_spacing }}px;
     }
 
     .ai-category-card-{{ ai_gen_id }} {
-      width: calc((100% - {{ block.settings.card_spacing | times: block.settings.slides_mobile | minus: 1 }}px) / {{ block.settings.slides_mobile }});
+      width: calc((100% - {{ block.settings.card_spacing }}px) / 2);
+      min-width: calc((100% - {{ block.settings.card_spacing }}px) / 2);
+      max-width: calc((100% - {{ block.settings.card_spacing }}px) / 2);
+      flex-shrink: 0;
     }
 
     .ai-category-slider-nav-prev-{{ ai_gen_id }} {
@@ -259,7 +269,13 @@
 
   @media screen and (max-width: 480px) {
     .ai-category-slider-wrapper-{{ ai_gen_id }} {
-      padding: 0 45px;
+      margin: 0 45px;
+    }
+
+    .ai-category-card-{{ ai_gen_id }} {
+      width: calc((100% - {{ block.settings.card_spacing }}px) / 2);
+      min-width: calc((100% - {{ block.settings.card_spacing }}px) / 2);
+      max-width: calc((100% - {{ block.settings.card_spacing }}px) / 2);
     }
 
     .ai-category-slider-header-{{ ai_gen_id }} {
@@ -467,12 +483,19 @@
         this.dotsContainer.style.display = 'flex';
         this.dotsContainer.innerHTML = '';
         
-        for (let i = 0; i <= this.maxSlide; i++) {
-          const dot = document.createElement('button');
-          dot.className = `ai-category-slider-dot-{{ ai_gen_id }} ${i === this.currentSlide ? 'active' : ''}`;
-          dot.setAttribute('data-slide', i);
-          dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-          this.dotsContainer.appendChild(dot);
+        const step = this.slidesPerView;
+        const numDots = Math.ceil((this.cards.length) / step);
+        
+        for (let i = 0; i < numDots; i++) {
+          const slideIndex = i * step;
+          if (slideIndex <= this.maxSlide) {
+            const dot = document.createElement('button');
+            const isActive = this.currentSlide >= slideIndex && this.currentSlide < slideIndex + step;
+            dot.className = `ai-category-slider-dot-{{ ai_gen_id }} ${isActive ? 'active' : ''}`;
+            dot.setAttribute('data-slide', slideIndex);
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            this.dotsContainer.appendChild(dot);
+          }
         }
       }
 
@@ -497,9 +520,13 @@
       updateDots() {
         if (!this.dotsContainer) return;
         
+        const step = this.slidesPerView;
         const dots = this.dotsContainer.querySelectorAll('.ai-category-slider-dot-{{ ai_gen_id }}');
-        dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === this.currentSlide);
+        
+        dots.forEach((dot) => {
+          const slideIndex = parseInt(dot.getAttribute('data-slide'));
+          const isActive = this.currentSlide >= slideIndex && this.currentSlide < slideIndex + step;
+          dot.classList.toggle('active', isActive);
         });
       }
 
@@ -514,8 +541,11 @@
       nextSlide() {
         if (this.isTransitioning) return;
         
+        const step = this.slidesPerView;
+        
         if (this.currentSlide < this.maxSlide) {
-          this.goToSlide(this.currentSlide + 1);
+          const nextSlide = Math.min(this.currentSlide + step, this.maxSlide);
+          this.goToSlide(nextSlide);
         } else if (this.autoplay) {
           this.goToSlide(0);
         }
@@ -524,8 +554,11 @@
       prevSlide() {
         if (this.isTransitioning) return;
         
+        const step = this.slidesPerView;
+        
         if (this.currentSlide > 0) {
-          this.goToSlide(this.currentSlide - 1);
+          const prevSlide = Math.max(this.currentSlide - step, 0);
+          this.goToSlide(prevSlide);
         }
       }
 
