@@ -22,6 +22,12 @@
             "padding_bottom": 8
           }
         },
+        "price_LbWbx7": {
+          "type": "price",
+          "settings": {
+            "padding_bottom": 20
+          }
+        },
         "pickup": {
           "type": "pickup",
           "disabled": true,
@@ -39,6 +45,7 @@
         },
         "tabs": {
           "type": "tab_richtext",
+          "disabled": true,
           "settings": {
             "show_read_more": true,
             "style": "tabs",
@@ -55,12 +62,6 @@
             "padding_bottom": 0
           }
         },
-        "price_LbWbx7": {
-          "type": "price",
-          "settings": {
-            "padding_bottom": 20
-          }
-        },
         "buttons_xAgMTi": {
           "type": "buttons",
           "settings": {
@@ -73,10 +74,10 @@
       },
       "block_order": [
         "title_8Y7MTP",
+        "price_LbWbx7",
         "pickup",
         "variants_3cRT3q",
         "tabs",
-        "price_LbWbx7",
         "buttons_xAgMTi"
       ],
       "custom_css": [
