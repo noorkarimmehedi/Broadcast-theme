@@ -56,6 +56,7 @@
     transition: transform 0.3s ease;
     gap: {{ block.settings.card_spacing }}px;
     touch-action: pan-y;
+    width: 100%;
   }
 
   .ai-category-card-{{ ai_gen_id }} {
@@ -229,10 +230,12 @@
 
     .ai-category-slider-wrapper-{{ ai_gen_id }} {
       padding: 0 50px;
+      overflow: hidden;
     }
 
     .ai-category-card-{{ ai_gen_id }} {
-      width: calc((100% - {{ block.settings.card_spacing | times: block.settings.slides_mobile | minus: 1 }}px) / {{ block.settings.slides_mobile }});
+      width: calc((100% - ({{ block.settings.card_spacing }}px * ({{ block.settings.slides_mobile }} - 1))) / {{ block.settings.slides_mobile }});
+      flex-shrink: 0;
     }
 
     .ai-category-slider-nav-prev-{{ ai_gen_id }} {
