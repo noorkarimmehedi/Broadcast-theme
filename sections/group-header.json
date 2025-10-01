@@ -48,7 +48,7 @@
         "show_icons": true,
         "icon_as_circle": false,
         "cart_icon_family": "bag",
-        "logo_max_limit": 120,
+        "logo_max_limit": 110,
         "main_menu_linklist": "",
         "enable_search": false,
         "show_social_icons": false,
