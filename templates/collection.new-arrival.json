@@ -96,7 +96,7 @@
         "show_title": true,
         "show_description": true,
         "flex_align": "align--middle-center",
-        "bg_color": "#0c0eef",
+        "bg_color": "#f9dee5",
         "color": "#ffffff",
         "show_image": true,
         "banner_layout": "overlay",
