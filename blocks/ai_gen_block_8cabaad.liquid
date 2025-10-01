@@ -521,7 +521,10 @@
           this.nextBtn.disabled = this.currentSlide >= this.maxSlide;
         }
 
-        this.updateDots();
+        // Force dots update
+        setTimeout(() => {
+          this.updateDots();
+        }, 50);
       }
 
       updateDots() {
@@ -540,6 +543,7 @@
         
         this.currentSlide = Math.max(0, Math.min(slideIndex, this.maxSlide));
         this.updateSlider();
+        this.updateDots();
         this.restartAutoplay();
       }
 
@@ -550,9 +554,15 @@
         
         if (this.currentSlide < this.maxSlide) {
           const nextSlide = Math.min(this.currentSlide + step, this.maxSlide);
-          this.goToSlide(nextSlide);
+          this.currentSlide = nextSlide;
+          this.updateSlider();
+          this.updateDots();
+          this.restartAutoplay();
         } else if (this.autoplay) {
-          this.goToSlide(0);
+          this.currentSlide = 0;
+          this.updateSlider();
+          this.updateDots();
+          this.restartAutoplay();
         }
       }
 
@@ -563,7 +573,10 @@
         
         if (this.currentSlide > 0) {
           const prevSlide = Math.max(this.currentSlide - step, 0);
-          this.goToSlide(prevSlide);
+          this.currentSlide = prevSlide;
+          this.updateSlider();
+          this.updateDots();
+          this.restartAutoplay();
         }
       }
 
