@@ -57,8 +57,14 @@
     display: flex;
     transition: transform 0.3s ease;
     gap: {{ block.settings.card_spacing }}px;
-    touch-action: pan-y;
+    touch-action: pan-y pinch-zoom;
     width: 100%;
+    cursor: grab;
+  }
+
+  .ai-category-slider-track-{{ ai_gen_id }}.dragging {
+    cursor: grabbing;
+    transition: none;
   }
 
   .ai-category-card-{{ ai_gen_id }} {
@@ -621,97 +627,133 @@
         this.addEventListener('mouseenter', () => this.stopAutoplay());
         this.addEventListener('mouseleave', () => this.restartAutoplay());
 
-        let startX = 0;
-        let startY = 0;
-        let currentX = 0;
-        let currentY = 0;
-        let isDragging = false;
-        let startTime = 0;
-        let isHorizontalSwipe = false;
+        // Enhanced Touch/Swipe Support
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchCurrentX = 0;
+        let touchCurrentY = 0;
+        let isSwiping = false;
+        let swipeStartTime = 0;
+        let initialTransform = 0;
 
-        const handleTouchStart = (e) => {
-          const touch = e.touches ? e.touches[0] : e;
-          startX = touch.clientX;
-          startY = touch.clientY;
-          currentX = startX;
-          currentY = startY;
-          isDragging = true;
-          isHorizontalSwipe = false;
-          startTime = Date.now();
+        const getTouchX = (e) => {
+          return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        };
+
+        const getTouchY = (e) => {
+          return e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        };
+
+        const onSwipeStart = (e) => {
+          touchStartX = getTouchX(e);
+          touchStartY = getTouchY(e);
+          touchCurrentX = touchStartX;
+          touchCurrentY = touchStartY;
+          swipeStartTime = Date.now();
+          
+          const transform = window.getComputedStyle(this.track).transform;
+          if (transform !== 'none') {
+            const matrix = new DOMMatrix(transform);
+            initialTransform = matrix.m41;
+          } else {
+            initialTransform = 0;
+          }
+          
           this.stopAutoplay();
-          this.isTransitioning = false;
+          this.track.classList.add('dragging');
         };
 
-        const handleTouchMove = (e) => {
-          if (!isDragging) return;
-          
-          const touch = e.touches ? e.touches[0] : e;
-          currentX = touch.clientX;
-          currentY = touch.clientY;
-          
-          const diffX = Math.abs(currentX - startX);
-          const diffY = Math.abs(currentY - startY);
-          
-          // Determine if this is a horizontal swipe
-          if (!isHorizontalSwipe && (diffX > 10 || diffY > 10)) {
-            isHorizontalSwipe = diffX > diffY;
-          }
-          
-          // Prevent default only for horizontal swipes
-          if (isHorizontalSwipe) {
+        const onSwipeMove = (e) => {
+          if (!touchStartX) return;
+
+          touchCurrentX = getTouchX(e);
+          touchCurrentY = getTouchY(e);
+
+          const diffX = touchCurrentX - touchStartX;
+          const diffY = touchCurrentY - touchStartY;
+
+          // Check if horizontal swipe
+          if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 5) {
+            isSwiping = true;
             e.preventDefault();
+            
+            // Visual feedback during swipe
+            const cardWidth = this.track.offsetWidth / this.slidesPerView;
+            const currentTranslate = -(this.currentSlide * cardWidth);
+            const newTranslate = currentTranslate + diffX;
+            
+            this.track.style.transition = 'none';
+            this.track.style.transform = `translateX(${newTranslate}px)`;
           }
         };
 
-        const handleTouchEnd = (e) => {
-          if (!isDragging) return;
-          isDragging = false;
-          
-          if (!isHorizontalSwipe) {
-            this.restartAutoplay();
-            return;
-          }
-          
-          const diff = startX - currentX;
-          const timeDiff = Date.now() - startTime;
-          const threshold = 30;
-          const velocity = Math.abs(diff) / timeDiff;
-          
-          if (Math.abs(diff) > threshold || velocity > 0.3) {
-            this.isTransitioning = true;
-            
-            if (diff > 0 && this.currentSlide < this.maxSlide) {
-              this.nextSlide();
-            } else if (diff < 0 && this.currentSlide > 0) {
-              this.prevSlide();
+        const onSwipeEnd = (e) => {
+          if (!touchStartX) return;
+
+          const diffX = touchStartX - touchCurrentX;
+          const diffY = Math.abs(touchStartY - touchCurrentY);
+          const swipeDuration = Date.now() - swipeStartTime;
+          const swipeVelocity = Math.abs(diffX) / swipeDuration;
+
+          this.track.classList.remove('dragging');
+          this.track.style.transition = '';
+
+          // Check if it's a horizontal swipe (not vertical scroll)
+          if (isSwiping && Math.abs(diffX) > Math.abs(diffY)) {
+            const threshold = 50;
+            const velocityThreshold = 0.3;
+
+            if (Math.abs(diffX) > threshold || swipeVelocity > velocityThreshold) {
+              if (diffX > 0) {
+                // Swiped left - go to next
+                this.nextSlide();
+              } else {
+                // Swiped right - go to previous
+                this.prevSlide();
+              }
+            } else {
+              // Snap back to current position
+              this.updateSlider();
             }
-            
-            setTimeout(() => {
-              this.isTransitioning = false;
-            }, 300);
+          } else {
+            // Return to current position
+            this.updateSlider();
           }
+
+          // Reset values
+          touchStartX = 0;
+          touchStartY = 0;
+          touchCurrentX = 0;
+          touchCurrentY = 0;
+          isSwiping = false;
           
           this.restartAutoplay();
         };
 
-        this.track.addEventListener('touchstart', handleTouchStart, { passive: true });
-        this.track.addEventListener('touchmove', handleTouchMove, { passive: false });
-        this.track.addEventListener('touchend', handleTouchEnd, { passive: true });
-        this.track.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+        // Touch events for mobile
+        this.track.addEventListener('touchstart', onSwipeStart, { passive: true });
+        this.track.addEventListener('touchmove', onSwipeMove, { passive: false });
+        this.track.addEventListener('touchend', onSwipeEnd, { passive: true });
+        this.track.addEventListener('touchcancel', onSwipeEnd, { passive: true });
 
-        this.track.addEventListener('mousedown', handleTouchStart);
-        this.track.addEventListener('mousemove', handleTouchMove);
-        this.track.addEventListener('mouseup', handleTouchEnd);
-        this.track.addEventListener('mouseleave', handleTouchEnd);
+        // Mouse events for desktop
+        this.track.addEventListener('mousedown', onSwipeStart);
+        this.track.addEventListener('mousemove', onSwipeMove);
+        this.track.addEventListener('mouseup', onSwipeEnd);
+        this.track.addEventListener('mouseleave', onSwipeEnd);
 
+        // Prevent default drag behavior
         this.track.addEventListener('dragstart', (e) => e.preventDefault());
         
-        // Prevent click events from triggering during swipe
-        this.track.addEventListener('click', (e) => {
-          if (Math.abs(startX - currentX) > 10) {
-            e.preventDefault();
-          }
-        }, true);
+        // Prevent link clicks during swipe
+        const links = this.track.querySelectorAll('a');
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            if (Math.abs(touchStartX - touchCurrentX) > 10) {
+              e.preventDefault();
+            }
+          });
+        });
       }
 
       disconnectedCallback() {
