@@ -79,6 +79,14 @@
     color: inherit;
   }
 
+  .ai-category-card-{{ ai_gen_id }}:first-child {
+    margin-left: 0;
+  }
+
+  .ai-category-card-{{ ai_gen_id }}:last-child {
+    margin-right: 0;
+  }
+
   .ai-category-card-{{ ai_gen_id }}:hover {
     transform: translateY(-{{ block.settings.hover_lift }}px);
     box-shadow: 0 {{ block.settings.hover_lift | times: 2 }}px {{ block.settings.hover_lift | times: 4 }}px rgba(0, 0, 0, 0.1);
@@ -227,17 +235,18 @@
 
   @media screen and (max-width: 768px) {
     .ai-category-slider-container-{{ ai_gen_id }} {
-      padding: 0 20px;
+      padding: 0;
       max-width: 100%;
     }
 
     .ai-category-slider-wrapper-{{ ai_gen_id }} {
-      margin: 0 -20px;
+      margin: 0;
       padding: 0 20px;
     }
 
     .ai-category-slider-track-{{ ai_gen_id }} {
       gap: {{ block.settings.card_spacing }}px;
+      padding: 0;
     }
 
     .ai-category-card-{{ ai_gen_id }} {
@@ -247,12 +256,20 @@
       flex-shrink: 0;
     }
 
+    .ai-category-card-{{ ai_gen_id }}:first-child {
+      margin-left: 0;
+    }
+
+    .ai-category-card-{{ ai_gen_id }}:last-child {
+      margin-right: 0;
+    }
+
     .ai-category-slider-nav-prev-{{ ai_gen_id }} {
-      left: -15px;
+      left: 5px;
     }
 
     .ai-category-slider-nav-next-{{ ai_gen_id }} {
-      right: -15px;
+      right: 5px;
     }
 
     .ai-category-card-overlay-{{ ai_gen_id }} {
@@ -270,11 +287,11 @@
 
   @media screen and (max-width: 480px) {
     .ai-category-slider-container-{{ ai_gen_id }} {
-      padding: 0 15px;
+      padding: 0;
     }
 
     .ai-category-slider-wrapper-{{ ai_gen_id }} {
-      margin: 0 -15px;
+      margin: 0;
       padding: 0 15px;
     }
 
@@ -286,7 +303,7 @@
 
     .ai-category-slider-header-{{ ai_gen_id }} {
       margin-bottom: 25px;
-      padding: 0;
+      padding: 0 15px;
     }
 
     .ai-category-slider-title-{{ ai_gen_id }} {
@@ -308,15 +325,15 @@
     }
 
     .ai-category-slider-nav-prev-{{ ai_gen_id }} {
-      left: -10px;
+      left: 2px;
     }
 
     .ai-category-slider-nav-next-{{ ai_gen_id }} {
-      right: -10px;
+      right: 2px;
     }
 
     .ai-category-slider-dots-{{ ai_gen_id }} {
-      padding: 0;
+      padding: 0 15px;
     }
   }
 {% endstyle %}
