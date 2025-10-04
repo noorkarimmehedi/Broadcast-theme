@@ -31,7 +31,7 @@
     "type_base_font": "avenir_next_n4",
     "type_body_size": 100,
     "type_nav_caps": true,
-    "btn_primary_bg_color": "#0c0eef",
+    "btn_primary_bg_color": "#000000",
     "btn_primary_border_color": "#0c0eef",
     "product_grid_outline": false,
     "show_scroll_top_button": true,
