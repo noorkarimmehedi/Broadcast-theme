@@ -31,7 +31,7 @@
         "text_mTEfgw"
       ],
       "settings": {
-        "layout": "marquee",
+        "layout": "slider",
         "slider_autoplay": false,
         "slider_speed": 5,
         "show_arrows": false,
