@@ -5,6 +5,8 @@
   assign text_color = section.settings.color
   assign text_size = section.settings.text_size
   assign show_arrows = section.settings.show_arrows | default: false
+  assign slider_autoplay = section.settings.slider_autoplay | default: true
+  assign marquee_autoplay = section.settings.marquee_autoplay | default: true
   assign bar_markup = ''
 -%}
 
@@ -411,25 +413,47 @@
     {%- if bar_markup != blank -%}
       <div class="announcement__bar-outer" data-bar{% if is_top %} data-bar-top{% endif %}>
         {%- if section.settings.layout == 'slider' -%}
-          <div class="announcement__bar-holder announcement__bar-holder--slider{% if show_arrows %} announcement__bar-holder--arrows{% endif %}"
-            data-slider
-            data-options='{"fade": true, "pageDots": false, "adaptiveHeight": false, "autoPlay": {{ section.settings.slider_speed | times: 1000 }}, "prevNextButtons": {{ show_arrows }}, "draggable": ">1"}'>
-            {{ bar_markup }}
-          </div>
+          {%- if slider_autoplay -%}
+            <div class="announcement__bar-holder announcement__bar-holder--slider{% if show_arrows %} announcement__bar-holder--arrows{% endif %}"
+              data-slider
+              data-options='{"fade": true, "pageDots": false, "adaptiveHeight": false, "autoPlay": {{ section.settings.slider_speed | times: 1000 }}, "prevNextButtons": {{ show_arrows }}, "draggable": ">1"}'>
+              {{ bar_markup }}
+            </div>
+          {%- else -%}
+            <div class="announcement__bar-holder announcement__bar-holder--slider{% if show_arrows %} announcement__bar-holder--arrows{% endif %}"
+              data-slider
+              data-options='{"fade": true, "pageDots": false, "adaptiveHeight": false, "autoPlay": false, "prevNextButtons": {{ show_arrows }}, "draggable": ">1"}'>
+              {{ bar_markup }}
+            </div>
+          {%- endif -%}
         {%- endif -%}
 
         {%- if section.settings.layout == 'marquee' -%}
-          <div class="announcement__bar-holder announcement__bar-holder--marquee" data-marquee>
-            <div class="announcement__bar">
-              <div data-ticker-frame data-marquee-speed="{{ 100.0 | divided_by: section.settings.marquee_speed | times: marquee_time }}" class="announcement__message">
-                <div data-ticker-scale class="announcement__scale ticker--unloaded">
-                  <div data-ticker-text class="announcement__text">
-                    {{ bar_markup }}
+          {%- if marquee_autoplay -%}
+            <div class="announcement__bar-holder announcement__bar-holder--marquee" data-marquee>
+              <div class="announcement__bar">
+                <div data-ticker-frame data-marquee-speed="{{ 100.0 | divided_by: section.settings.marquee_speed | times: marquee_time }}" class="announcement__message">
+                  <div data-ticker-scale class="announcement__scale ticker--unloaded">
+                    <div data-ticker-text class="announcement__text">
+                      {{ bar_markup }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          {%- else -%}
+            <div class="announcement__bar-holder announcement__bar-holder--marquee" data-marquee data-marquee-disabled>
+              <div class="announcement__bar">
+                <div data-ticker-frame data-marquee-speed="0" class="announcement__message">
+                  <div data-ticker-scale class="announcement__scale ticker--unloaded">
+                    <div data-ticker-text class="announcement__text">
+                      {{ bar_markup }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
         {%- endif -%}
       </div>
     {%- endif -%}
