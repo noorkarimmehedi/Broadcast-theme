@@ -32,9 +32,9 @@
       ],
       "settings": {
         "layout": "slider",
-        "slider_speed": 7,
+        "slider_speed": 5,
         "show_arrows": false,
-        "marquee_speed": 100,
+        "marquee_speed": 50,
         "text_size": 2,
         "bg_color": "#000000",
         "color": "#ffffff"
