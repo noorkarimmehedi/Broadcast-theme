@@ -49,7 +49,7 @@
       ],
       "name": "Collection list",
       "settings": {
-        "title": "Collection list",
+        "title": "",
         "description": "",
         "layout": "slider",
         "aspect_ratio": 1.3,
