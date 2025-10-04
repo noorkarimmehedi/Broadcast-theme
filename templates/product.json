@@ -296,6 +296,7 @@
         "custom-0",
         "custom-1"
       ],
+      "disabled": true,
       "settings": {
         "height": "screen-height-one-half",
         "mobile_height": "screen-height-one-half--mobile",
@@ -357,6 +358,7 @@
         "imgtxt-0",
         "imgtxt-1"
       ],
+      "disabled": true,
       "settings": {
         "height": "screen-height-one-half",
         "mobile_height": "screen-height-one-half--mobile",
@@ -369,6 +371,7 @@
     },
     "related": {
       "type": "related",
+      "disabled": true,
       "settings": {
         "enable_tabs": true,
         "bg_color": "",
@@ -376,6 +379,30 @@
         "border_color": "",
         "padding_top": 30,
         "padding_bottom": 0
+      }
+    },
+    "section_collection_hA8Jpn": {
+      "type": "section-collection",
+      "name": "Featured collection",
+      "settings": {
+        "heading": "You may also like",
+        "description": "",
+        "layout": "inline",
+        "link_text": "",
+        "link_url": "",
+        "button_type": "btn--primary",
+        "button_size": "",
+        "button_style": "btn--solid",
+        "show_arrow": false,
+        "featured_collection": "new-arrival",
+        "style": "grid",
+        "grid": 4,
+        "rows": 3,
+        "layout_mobile": "1",
+        "bg_color": "",
+        "color": "",
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     }
   },
@@ -387,6 +414,7 @@
     "reviews",
     "custom",
     "imgtxt",
-    "related"
+    "related",
+    "section_collection_hA8Jpn"
   ]
 }
