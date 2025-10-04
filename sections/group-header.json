@@ -16,22 +16,8 @@
       "blocks": {
         "text_mTEfgw": {
           "type": "text",
-          "disabled": true,
           "settings": {
             "text": "<p>New Customers Save 10% with Code \"<strong>GET10\"</strong></p>",
-            "target_url_enabled": false,
-            "target_url": "",
-            "target_referrer_enabled": false,
-            "target_referrer": "",
-            "target_device_enabled": false,
-            "target_device": "mobile"
-          }
-        },
-        "message_U4EK3r": {
-          "type": "message",
-          "settings": {
-            "show_wheel": false,
-            "message": "You are ||amount|| away from free shipping.",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
@@ -42,11 +28,10 @@
         }
       },
       "block_order": [
-        "text_mTEfgw",
-        "message_U4EK3r"
+        "text_mTEfgw"
       ],
       "settings": {
-        "layout": "slider",
+        "layout": "marquee",
         "slider_speed": 5,
         "show_arrows": false,
         "marquee_speed": 50,
