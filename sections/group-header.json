@@ -43,7 +43,7 @@
     "header": {
       "type": "header",
       "settings": {
-        "header_sticky": false,
+        "header_sticky": true,
         "header_style": "logo_beside",
         "show_icons": true,
         "icon_as_circle": false,
