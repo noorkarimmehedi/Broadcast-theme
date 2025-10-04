@@ -9,6 +9,58 @@
  */
 {
   "sections": {
+    "section_collections_list_Kwr4jp": {
+      "type": "section-collections-list",
+      "blocks": {
+        "collection_rn3hJw": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-arrival",
+            "title": ""
+          }
+        },
+        "collection_PiJJAa": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-arrival",
+            "title": ""
+          }
+        },
+        "collection_J633bB": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-arrival",
+            "title": ""
+          }
+        },
+        "collection_wUcRFx": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-arrival",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_rn3hJw",
+        "collection_PiJJAa",
+        "collection_J633bB",
+        "collection_wUcRFx"
+      ],
+      "name": "Collection list",
+      "settings": {
+        "title": "Collection list",
+        "description": "",
+        "layout": "grid",
+        "aspect_ratio": 1,
+        "grid": 4,
+        "layout_mobile": "2",
+        "bg_color": "",
+        "color": "",
+        "padding_top": 0,
+        "padding_bottom": 1
+      }
+    },
     "17593394853e0db13d": {
       "type": "_blocks",
       "blocks": {
@@ -92,6 +144,7 @@
       "block_order": [
         "ai_gen_block_8cabaad_6pGLC6"
       ],
+      "disabled": true,
       "settings": {}
     },
     "hero": {
@@ -141,6 +194,7 @@
     }
   },
   "order": [
+    "section_collections_list_Kwr4jp",
     "17593394853e0db13d",
     "hero",
     "subcollections",
