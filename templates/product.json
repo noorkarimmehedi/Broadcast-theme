@@ -180,7 +180,7 @@
             "table_alignment": "center",
             "padding": 30,
             "margin": 20,
-            "border_radius": 8,
+            "border_radius": 0,
             "background_color": "#ffffff",
             "title_color": "#000000",
             "text_color": "#666666",
