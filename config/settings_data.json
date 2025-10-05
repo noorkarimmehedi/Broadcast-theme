@@ -30,6 +30,7 @@
     "type_heading_size": 115,
     "type_base_font": "avenir_next_n4",
     "type_body_size": 100,
+    "type_nav_font": "heading",
     "type_nav_caps": true,
     "btn_primary_bg_color": "#000000",
     "btn_primary_border_color": "#000000",
