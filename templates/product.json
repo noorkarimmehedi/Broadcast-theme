@@ -100,6 +100,7 @@
       "blocks": {
         "ai_gen_block_7cc8916_Jjn6PX": {
           "type": "ai_gen_block_7cc8916",
+          "disabled": true,
           "settings": {
             "title": "Size Chart",
             "description": "<p>Find your perfect fit with our detailed size guide.</p>",
