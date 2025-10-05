@@ -60,7 +60,7 @@
         "type": "currency",
         "highlight_item": "Sale",
         "highlight_item_color": "#d02e2e",
-        "transparent_home": false,
+        "transparent_home": true,
         "transparent_collection": false,
         "transparent_article": false,
         "transparent_page": false,
