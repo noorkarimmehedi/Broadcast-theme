@@ -189,7 +189,7 @@
             "header_text_color": "#000000",
             "cell_text_color": "#333333",
             "row_alternate_color": "#fafafa",
-            "row_hover_color": "#f0f0f0",
+            "row_hover_color": "#ffffff",
             "table_border_color": "#ffffff",
             "cell_border_color": "#f0f0f0",
             "note_background": "#f8f9fa",
