@@ -357,6 +357,52 @@
       "disabled": true,
       "settings": {}
     },
+    "about": {
+      "type": "section-accordion",
+      "blocks": {
+        "about-0": {
+          "type": "image",
+          "settings": {
+            "title": "",
+            "text": "<p>All measurements are in inches. For best fit, measure yourself and compare with the chart above.</p>",
+            "image": "shopify://shop_images/0c7233a7-2a65-4cd5-9ddf-28e6383c5fcd.jpg",
+            "aspect_ratio": 0.6
+          }
+        },
+        "about-1": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "title": "Image heading",
+            "text": "<p>Use this to answer some common questions you hear from your customers. You could discuss product details, size fit, shipping policies, or anything you think would help merchants make an informed decision about your products. This section will appear across all products.</p>",
+            "aspect_ratio": 0.6
+          }
+        },
+        "about-2": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "title": "Image heading",
+            "text": "<p>Use this to answer some common questions you hear from your customers. You could discuss product details, size fit, shipping policies, or anything you think would help merchants make an informed decision about your products. This section will appear across all products.</p>",
+            "aspect_ratio": 0.6
+          }
+        }
+      },
+      "block_order": [
+        "about-0",
+        "about-1",
+        "about-2"
+      ],
+      "settings": {
+        "title": "Size Chart",
+        "bg_color": "",
+        "color": "",
+        "border_color": "",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "faq": {
       "type": "section-accordion",
       "blocks": {
@@ -446,52 +492,6 @@
       ],
       "settings": {
         "title": "Shipping",
-        "bg_color": "",
-        "color": "",
-        "border_color": "",
-        "width": "wrapper",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "about": {
-      "type": "section-accordion",
-      "blocks": {
-        "about-0": {
-          "type": "image",
-          "settings": {
-            "title": "",
-            "text": "<p>All measurements are in inches. For best fit, measure yourself and compare with the chart above.</p>",
-            "image": "shopify://shop_images/0c7233a7-2a65-4cd5-9ddf-28e6383c5fcd.jpg",
-            "aspect_ratio": 0.6
-          }
-        },
-        "about-1": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "title": "Image heading",
-            "text": "<p>Use this to answer some common questions you hear from your customers. You could discuss product details, size fit, shipping policies, or anything you think would help merchants make an informed decision about your products. This section will appear across all products.</p>",
-            "aspect_ratio": 0.6
-          }
-        },
-        "about-2": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "title": "Image heading",
-            "text": "<p>Use this to answer some common questions you hear from your customers. You could discuss product details, size fit, shipping policies, or anything you think would help merchants make an informed decision about your products. This section will appear across all products.</p>",
-            "aspect_ratio": 0.6
-          }
-        }
-      },
-      "block_order": [
-        "about-0",
-        "about-1",
-        "about-2"
-      ],
-      "settings": {
-        "title": "Size Chart",
         "bg_color": "",
         "color": "",
         "border_color": "",
@@ -675,9 +675,9 @@
     "main",
     "17596492331a37535f",
     "17596469702ade7f46",
+    "about",
     "faq",
     "shipping",
-    "about",
     "reviews",
     "custom",
     "imgtxt",
