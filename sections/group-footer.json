@@ -63,6 +63,7 @@
     },
     "supporting-menu": {
       "type": "section-supporting-menu",
+      "disabled": true,
       "settings": {
         "linklist": "",
         "footer_payment_enable": false,
